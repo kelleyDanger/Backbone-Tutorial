@@ -1,0 +1,21 @@
+#container { 
+	padding:20px; 
+	border:1px solid #333; 
+	width:400px; 
+}
+
+#list-template { 
+	display:none; 
+}
+
+.floatLeft {
+	float: left;
+}
+
+.floatRight {
+	float: right;
+}
+
+.form-group {
+    margin-top: 15px;
+}

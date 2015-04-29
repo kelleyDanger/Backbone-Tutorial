@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>1stDibs Front-End Quiz - Kelley Scanlon</title>
+	
+	<!-- styles -->
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/customCss.css">
+    <!-- /styles -->
+	
+</head>
+<body>
+<!-- .container-fluid -->
+<div class="container-fluid">
+
+	<div class="row">
+		<!-- .form -->
+        <form class="col-xs-12">
+            
+            <div class="row col-xs-12">
+                <div class="col-xs-8">
+                    <div class="form-group">
+                        <div id="title"></div> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row col-xs-12">
+                <div class="col-xs-8">
+                    <div class="form-group">
+                        <div id="description"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row col-xs-12">
+                <div class="col-xs-8">
+                    <div class="form-group">
+                        <div id="internalNotes"></div> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row col-xs-12">
+                <div class="form-group">
+                    <div id="materials"></div>      
+                </div>
+            </div>
+            
+            <div class="row col-xs-12">
+                <div class="col-xs-8">
+                    <div class="form-group">
+                        <div id="measurements"></div>  
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row col-xs-12">
+                <div class="col-xs-12">
+                    <div id="dimensions"></div>
+                </div>
+            </div>
+            
+            <div class="row col-xs-12">
+                <div class="col-xs-8">
+                    <div class="form-group">
+                        <div id="condition"></div> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row col-xs-12">
+                <div class="col-xs-8">
+                    <div id="save"></div>
+                </div>
+            </div>
+            
+        </form> <!-- /.form -->
+    </div> <!-- /row -->
+</div> <!-- /.container-fluid -->
+    
+<script type="text/template" id="title-template">
+    <label for="inputTitle">Title</label>
+    <input id="inputTitle" class="form-control" placeholder="Enter title" value="<%= title %>">
+</script>   
+    
+<script type="text/template" id="description-template">
+    <label for="inputDescription">Description</label>
+    <textarea id="textAreaDescription" class="form-control" rows="5"><%= description %> </textarea>
+</script>
+    
+<script type="text/template" id="internal-notes-template">
+    <label for="inputInternalNotes">internal notes</label>
+    <textarea id="textAreaInternalNotes" class="form-control" rows="3"><%= dealerInternalNotes %></textarea>
+</script>
+    
+<script type="text/template" id="materials-template">
+    <div class="col-xs-4">
+        <label for="materialsList">Materials</label>
+        <select id="materialsList" class="form-control">
+            <option value="" selected disabled>Select...</option>
+            <% for(var m in material) { %>  
+              <option><%= material[m] %></option> 
+            <% }; %>
+        </select>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group">
+            <div class="checkbox">
+                <label><input id="checkboxRestrictedMaterials" type="checkbox"><strong>Check this box </strong> if the listing contains or may contain restricted materials</label>
+            </div>
+        </div>
+    </div> 
+</script>
+    
+<script type="text/template" id="measurements-template">
+    <label>Measurements</label>
+    <div id="measurementUnit" class="radio">
+        Measurements are in:
+        <label class="radio-inline"><input type="radio" name="unitradio" value="<%= unit.in %>" checked ><%= unit.in %></label>
+        <label class="radio-inline"><input type="radio" name="unitradio" value="<%= unit.cm %>"><%= unit.cm %></label>
+    </div>
+    <div id="measurementShape" class="radio">
+        Measured item is:
+        <label class="radio-inline"><input type="radio" name="shaperadio" value="<%= shape[0] %>" checked ><%= shape[0] %></label>
+        <label class="radio-inline"><input type="radio" name="shaperadio" value="<%= shape[1] %>"><%= shape[1] %></label>
+    </div>
+</script>
+    
+<script type="text/template" id="dimensions-template">
+    <div class="row col-xs-8 col-md-3">	
+        <div class="form-group">
+            <label for="inputLength">Length: </label>
+            <div class="input-group col-xs-5">
+                <input id="inputLength" type="text" class="form-control" aria-describedby="length-unit" value="<%= length %>">
+                <span id="length-unit" class="input-group-addon">in.</span>
+            </div>
+            <label for="inputHeight">Height: </label>
+            <div class="input-group col-xs-5">
+                <input id="inputHeight" type="text" class="form-control" aria-describedby="height-unit" value="<%= height %>">
+                <span id="height-unit" class="input-group-addon">in.</span>
+            </div>
+        </div>    
+    </div>
+
+    <div class="row col-xs-8 col-md-3">	
+        <div class="form-group">
+            <label for="inputDepth">Depth: </label>
+            <div class="input-group col-xs-5">
+                <input id="inputDepth" type="text" class="form-control" aria-describedby="depth-unit" value="<%= depth %>">
+                <span id="depth-unit" class="input-group-addon">in.</span>
+            </div>
+            <label for="inputDiameter">Diameter: </label>
+            <div class="input-group col-xs-5">
+                <input id="inputDiameter" type="text" class="form-control" aria-describedby="diameter-unit" disabled>
+                <span id="diameter-unit" class="input-group-addon">in.</span>
+            </div>
+        </div>    
+    </div>
+</script>
+    
+<script type="text/template" id="condition-template">
+    <label for="conditionRadioButtons">Condition <em>(Select one)</em></label>
+    <div id="conditionRadioButtons" class="radio">
+        <label class="radio-inline"><input type="radio" name="conditionradio" value="<%= description[0] %>" checked><%= description[0] %></label>
+        <label class="radio-inline"><input type="radio" name="conditionradio" value="<%= description[1] %>"><%= description[1] %></label>
+        <label class="radio-inline"><input type="radio" name="conditionradio" value="<%= description[2] %>"><%= description[2] %></label>
+        <label class="radio-inline"><input type="radio" name="conditionradio" value="<%= description[3] %>"><%= description[3] %></label>
+    </div>
+</script>
+    
+<script type="text/template" id="save-template">
+    <button id="saveButton" type="button" class="btn btn-primary">Save</button>
+</script>
+
+</body>
+
+<!-- libraries -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="http://documentcloud.github.com/backbone/backbone-min.js"></script> 
+<script src="js/model/item-model.js"></script> 
+<script src="js/model/enums-model.js"></script> 
+<script src="js/views/title.js"></script>
+<script src="js/views/description.js"></script>
+<script src="js/views/internal-notes.js"></script>
+<script src="js/views/materials.js"></script>
+<script src="js/views/measurements.js"></script>
+<script src="js/views/dimensions.js"></script>
+<script src="js/views/condition.js"></script>
+<script src="js/views/save.js"></script>
+<!-- /libraries -->
+
+</html>
